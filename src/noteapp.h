@@ -5,12 +5,13 @@
 
 struct Note {
     std::string content;
-    std::string filename;
+    std::string title;
+    std::string id;
+    std::string timestamp;
 };
 
 class NoteApp {
 private:
-    // Window settings
     const int WINDOW_WIDTH = 1366;
     const int WINDOW_HEIGHT = 768;
     const float SIDEBAR_WIDTH = 280.0f;
@@ -24,20 +25,25 @@ private:
     
     sf::RenderWindow mainWindow;
     sf::RectangleShape sidebar;
+    sf::RectangleShape editArea;
     sf::Font font;
+    
     std::vector<Note> notes;
     std::vector<sf::RectangleShape> buttons;
     std::vector<sf::Text> buttonTexts;
-    std::vector<sf::RectangleShape> noteCards;
+    std::vector<sf::RectangleShape> noteListItems;
+    std::vector<sf::Text> noteListTexts;
+    
+    std::string currentNoteContent;
     int selectedNoteIndex;
+    bool isEditing;
     
     void setupUI();
+    void handleInput(sf::Event& event);
     void createNewNote();
-    void saveCurrentNote(const std::string& content);
+    void saveCurrentNote(); // Changed signature
     void loadNotes();
     void updateNotesList();
-    void handleClick(int x, int y);
-    void deleteSelectedNote();
     void draw();
 
 public:
